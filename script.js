@@ -27,32 +27,24 @@ themeToggle.addEventListener('change', (e) => {
 
 // Load saved content from localStorage
 function loadSavedContent() {
-    htmlEditor.textContent = localStorage.getItem('htmlContent') || '';
-    cssEditor.textContent = localStorage.getItem('cssContent') || '';
-    jsEditor.textContent = localStorage.getItem('jsContent') || '';
+    htmlEditor.value = localStorage.getItem('htmlContent') || '';
+    cssEditor.value = localStorage.getItem('cssContent') || '';
+    jsEditor.value = localStorage.getItem('jsContent') || '';
     updatePreview();
-    highlightCode();
 }
 
 // Save content to localStorage
 function saveContent() {
-    localStorage.setItem('htmlContent', htmlEditor.textContent);
-    localStorage.setItem('cssContent', cssEditor.textContent);
-    localStorage.setItem('jsContent', jsEditor.textContent);
-}
-
-// Update syntax highlighting
-function highlightCode() {
-    editors.forEach(editor => {
-        Prism.highlightElement(editor);
-    });
+    localStorage.setItem('htmlContent', htmlEditor.value);
+    localStorage.setItem('cssContent', cssEditor.value);
+    localStorage.setItem('jsContent', jsEditor.value);
 }
 
 // Update the preview iframe
 function updatePreview() {
-    const html = htmlEditor.textContent;
-    const css = cssEditor.textContent;
-    const js = jsEditor.textContent;
+    const html = htmlEditor.value;
+    const css = cssEditor.value;
+    const js = jsEditor.value;
 
     const previewContent = `
         <!DOCTYPE html>
@@ -83,14 +75,15 @@ tabButtons.forEach(button => {
         // Add active class to clicked button and corresponding editor
         button.classList.add('active');
         const lang = button.getAttribute('data-lang');
-        document.getElementById(`${lang}-editor`).classList.add('active');
+        const activeEditor = document.getElementById(`${lang}-editor`);
+        activeEditor.classList.add('active');
+        activeEditor.focus();
     });
 });
 
 // Add input event listeners to all editors
 editors.forEach(editor => {
     editor.addEventListener('input', () => {
-        highlightCode();
         updatePreview();
         saveContent();
     });
@@ -101,11 +94,18 @@ editors.forEach(editor => {
             e.preventDefault();
             const start = editor.selectionStart;
             const end = editor.selectionEnd;
-            editor.textContent = editor.textContent.substring(0, start) + '    ' + editor.textContent.substring(end);
+            const value = editor.value;
+            editor.value = value.substring(0, start) + '    ' + value.substring(end);
             editor.selectionStart = editor.selectionEnd = start + 4;
         }
     });
 });
 
 // Initialize the editor
-loadSavedContent(); 
+loadSavedContent();
+
+// Focus the active editor on load
+const activeEditor = document.querySelector('.editor.active');
+if (activeEditor) {
+    activeEditor.focus();
+} 

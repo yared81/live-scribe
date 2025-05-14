@@ -13,17 +13,21 @@
     --tab-hover: #e0e0e0;
     --tab-active: #007bff;
     --tab-active-text: white;
+    --editor-bg: #ffffff;
+    --editor-text: #333333;
 }
 
 [data-theme="dark"] {
     --bg-color: #1a1a1a;
     --panel-bg: #2d2d2d;
-    --text-color: #fff;
+    --text-color: #e0e0e0;
     --border-color: #404040;
     --tab-bg: #404040;
     --tab-hover: #505050;
     --tab-active: #0d6efd;
     --tab-active-text: white;
+    --editor-bg: #1e1e1e;
+    --editor-text: #e0e0e0;
 }
 
 body {
@@ -72,16 +76,21 @@ body {
 .tabs {
     display: flex;
     gap: 10px;
+    background-color: var(--tab-bg);
+    padding: 5px;
+    border-radius: 6px;
 }
 
 .tab-btn {
     padding: 8px 16px;
     border: none;
-    background-color: var(--tab-bg);
+    background-color: transparent;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s;
     color: var(--text-color);
+    font-weight: 500;
+    position: relative;
 }
 
 .tab-btn:hover {
@@ -91,6 +100,17 @@ body {
 .tab-btn.active {
     background-color: var(--tab-active);
     color: var(--tab-active-text);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--tab-active);
 }
 
 /* Theme Switch Styles */
@@ -159,11 +179,13 @@ input:checked + .slider:before {
     flex: 1;
     position: relative;
     overflow: hidden;
+    background-color: var(--editor-bg);
 }
 
 .editor-wrapper {
     height: 100%;
     overflow: auto;
+    padding: 15px;
 }
 
 .editor {
@@ -179,15 +201,21 @@ input:checked + .slider:before {
     font-size: 14px;
     line-height: 1.5;
     display: none;
-    background: transparent;
-    color: var(--text-color);
+    background: var(--editor-bg);
+    color: var(--editor-text);
     outline: none;
-    white-space: pre-wrap;
-    word-wrap: break-word;
+    white-space: pre;
+    tab-size: 4;
+    -moz-tab-size: 4;
 }
 
 .editor.active {
     display: block;
+}
+
+.editor::placeholder {
+    color: var(--text-color);
+    opacity: 0.5;
 }
 
 #preview-frame {
@@ -241,6 +269,53 @@ input:checked + .slider:before {
 }
 
 .token.function {
+    color: #b392f0;
+}
+
+/* Dark mode syntax highlighting overrides */
+[data-theme="dark"] .token.comment,
+[data-theme="dark"] .token.prolog,
+[data-theme="dark"] .token.doctype,
+[data-theme="dark"] .token.cdata {
+    color: #8b949e;
+}
+
+[data-theme="dark"] .token.punctuation {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .token.property,
+[data-theme="dark"] .token.tag,
+[data-theme="dark"] .token.boolean,
+[data-theme="dark"] .token.number,
+[data-theme="dark"] .token.constant,
+[data-theme="dark"] .token.symbol {
+    color: #79b8ff;
+}
+
+[data-theme="dark"] .token.selector,
+[data-theme="dark"] .token.attr-name,
+[data-theme="dark"] .token.string,
+[data-theme="dark"] .token.char,
+[data-theme="dark"] .token.builtin {
+    color: #9ecbff;
+}
+
+[data-theme="dark"] .token.operator,
+[data-theme="dark"] .token.entity,
+[data-theme="dark"] .token.url,
+[data-theme="dark"] .language-css .token.string,
+[data-theme="dark"] .style .token.string {
+    color: #d1d5db;
+}
+
+[data-theme="dark"] .token.atrule,
+[data-theme="dark"] .token.attr-value,
+[data-theme="dark"] .token.keyword {
+    color: #f97583;
+}
+
+[data-theme="dark"] .token.function {
     color: #b392f0;
 }
 
