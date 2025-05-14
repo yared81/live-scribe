@@ -91,6 +91,17 @@ body {
     color: var(--text-color);
     font-weight: 500;
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tab-icon {
+    font-size: 1.1em;
+}
+
+.tab-text {
+    font-size: 0.9em;
 }
 
 .tab-btn:hover {

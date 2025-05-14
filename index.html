@@ -7,17 +7,30 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" id="dark-theme" disabled>
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📄</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>" id="css-favicon">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📜</text></svg>" id="js-favicon">
 </head>
 <body>
     <div class="container">
         <div class="editor-panel">
             <div class="editor-header">
-                <h2>Code Editor</h2>
+                <h2>LiveScribe Editor</h2>
                 <div class="controls">
                     <div class="tabs">
-                        <button class="tab-btn active" data-lang="html">HTML</button>
-                        <button class="tab-btn" data-lang="css">CSS</button>
-                        <button class="tab-btn" data-lang="js">JavaScript</button>
+                        <button class="tab-btn active" data-lang="html">
+                            <span class="tab-icon">📄</span>
+                            <span class="tab-text">HTML</span>
+                        </button>
+                        <button class="tab-btn" data-lang="css">
+                            <span class="tab-icon">🎨</span>
+                            <span class="tab-text">CSS</span>
+                        </button>
+                        <button class="tab-btn" data-lang="js">
+                            <span class="tab-icon">📜</span>
+                            <span class="tab-text">JavaScript</span>
+                        </button>
                     </div>
                     <div class="theme-switch">
                         <label class="switch">

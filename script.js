@@ -7,6 +7,8 @@ const tabButtons = document.querySelectorAll('.tab-btn');
 const editors = document.querySelectorAll('.editor');
 const themeToggle = document.getElementById('theme-toggle');
 const darkTheme = document.getElementById('dark-theme');
+const cssFavicon = document.getElementById('css-favicon');
+const jsFavicon = document.getElementById('js-favicon');
 
 // Theme Management
 function setTheme(isDark) {
@@ -65,6 +67,20 @@ function updatePreview() {
     previewDocument.close();
 }
 
+// Update favicon based on active tab
+function updateFavicon(lang) {
+    // Hide all favicons
+    cssFavicon.disabled = true;
+    jsFavicon.disabled = true;
+    
+    // Show the appropriate favicon
+    if (lang === 'css') {
+        cssFavicon.disabled = false;
+    } else if (lang === 'js') {
+        jsFavicon.disabled = false;
+    }
+}
+
 // Handle tab switching
 tabButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -78,6 +94,9 @@ tabButtons.forEach(button => {
         const activeEditor = document.getElementById(`${lang}-editor`);
         activeEditor.classList.add('active');
         activeEditor.focus();
+        
+        // Update favicon
+        updateFavicon(lang);
     });
 });
 
@@ -108,4 +127,7 @@ loadSavedContent();
 const activeEditor = document.querySelector('.editor.active');
 if (activeEditor) {
     activeEditor.focus();
-} 
+}
+
+// Set initial favicon
+updateFavicon('html'); 
