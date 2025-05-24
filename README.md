@@ -13,19 +13,7 @@ A modern, lightweight code editor built with vanilla HTML, CSS, and JavaScript t
 - **Responsive Design**: Works on both desktop and mobile devices
 - **No Dependencies**: Built with pure vanilla JavaScript, no external libraries required
 
-## Getting Started
-
-1. Clone the repository:
  
- 
-2. Open `index.html` in your web browser
-
-3. Start coding! The editor will automatically:
-   - Update the preview as you type
-   - Save your code to localStorage
-   - Switch themes when toggled
-   - Change favicon based on the active tab
-
 ## Usage
 
 ### Code Editing
@@ -49,7 +37,4 @@ The editor works in all modern browsers that support:
 - ES6+ JavaScript
 - CSS Grid and Flexbox
 - localStorage API
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+ 
