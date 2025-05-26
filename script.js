@@ -5,8 +5,6 @@ const previewFrame = document.getElementById('preview-frame');
 const tabButtons = document.querySelectorAll('.tab-btn');
 const editors = document.querySelectorAll('.editor');
 const themeToggle = document.getElementById('theme-toggle');
-const cssFavicon = document.getElementById('css-favicon');
-const jsFavicon = document.getElementById('js-favicon');
 
 function setTheme(isDark) {
     document.body.setAttribute('data-theme', isDark ? 'dark' : 'light');
@@ -117,17 +115,6 @@ function updatePreview() {
     document.querySelector('.preview-header h2').textContent = previewTitle;
 }
 
-function updateFavicon(lang) {
-    cssFavicon.disabled = true;
-    jsFavicon.disabled = true;
-        
-    if (lang === 'css') {
-        cssFavicon.disabled = false;
-    } else if (lang === 'js') {
-        jsFavicon.disabled = false;
-    }
-}
-
 tabButtons.forEach(button => {
     button.addEventListener('click', () => {        
         tabButtons.forEach(btn => btn.classList.remove('active'));
@@ -138,8 +125,6 @@ tabButtons.forEach(button => {
         const activeEditor = document.getElementById(`${lang}-editor`);
         activeEditor.classList.add('active');
         activeEditor.focus();
-                
-        updateFavicon(lang);
     });
 });
 
@@ -166,6 +151,4 @@ loadSavedContent();
 const activeEditor = document.querySelector('.editor.active');
 if (activeEditor) {
     activeEditor.focus();
-}
-
-updateFavicon('html'); 
+} 
