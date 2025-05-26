@@ -26,8 +26,7 @@ themeToggle.addEventListener('change', (e) => {
 
 function highlightSyntax(code, language) {
     if (!code) return code;
-    
-    // HTML highlighting
+        
     if (language === 'html') {
         return code
             .replace(/&/g, '&amp;')
@@ -36,8 +35,7 @@ function highlightSyntax(code, language) {
             .replace(/(".*?")/g, '<span class="string">$1</span>')
             .replace(/(&lt;\/?[a-z][^&]*&gt;)/gi, '<span class="tag">$1</span>');
     }
-    
-    // CSS highlighting
+        
     if (language === 'css') {
         return code
             .replace(/(".*?")/g, '<span class="string">$1</span>')
@@ -46,7 +44,6 @@ function highlightSyntax(code, language) {
             .replace(/(\/\*.*?\*\/)/g, '<span class="comment">$1</span>');
     }
     
-    // JavaScript highlighting
     if (language === 'js') {
         return code
             .replace(/(".*?")/g, '<span class="string">$1</span>')
@@ -59,13 +56,11 @@ function highlightSyntax(code, language) {
     return code;
 }
 
-// Extract title from HTML content
 function extractTitle(html) {
     const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
     return titleMatch ? titleMatch[1].trim() : 'Live Preview';
 }
 
-// Load saved content from localStorage
 function loadSavedContent() {
     htmlEditor.value = localStorage.getItem('htmlContent') || '';
     cssEditor.value = localStorage.getItem('cssContent') || '';
@@ -73,14 +68,12 @@ function loadSavedContent() {
     updatePreview();
 }
 
-// Save content to localStorage
 function saveContent() {
     localStorage.setItem('htmlContent', htmlEditor.value);
     localStorage.setItem('cssContent', cssEditor.value);
     localStorage.setItem('jsContent', jsEditor.value);
 }
 
-// Update the preview iframe
 function updatePreview() {
     const html = htmlEditor.value;
     const css = cssEditor.value;
@@ -119,19 +112,15 @@ function updatePreview() {
     previewDocument.open();
     previewDocument.write(previewContent);
     previewDocument.close();
-
-    // Update preview panel title
+    
     const previewTitle = extractTitle(html);
     document.querySelector('.preview-header h2').textContent = previewTitle;
 }
 
-// Update favicon based on active tab
 function updateFavicon(lang) {
-    // Hide all favicons
     cssFavicon.disabled = true;
     jsFavicon.disabled = true;
-    
-    // Show the appropriate favicon
+        
     if (lang === 'css') {
         cssFavicon.disabled = false;
     } else if (lang === 'js') {
@@ -139,33 +128,27 @@ function updateFavicon(lang) {
     }
 }
 
-// Handle tab switching
 tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        // Remove active class from all buttons and editors
+    button.addEventListener('click', () => {        
         tabButtons.forEach(btn => btn.classList.remove('active'));
         editors.forEach(editor => editor.classList.remove('active'));
-
-        // Add active class to clicked button and corresponding editor
+        
         button.classList.add('active');
         const lang = button.getAttribute('data-lang');
         const activeEditor = document.getElementById(`${lang}-editor`);
         activeEditor.classList.add('active');
         activeEditor.focus();
-        
-        // Update favicon
+                
         updateFavicon(lang);
     });
 });
 
-// Add input event listeners to all editors
 editors.forEach(editor => {
     editor.addEventListener('input', () => {
         updatePreview();
         saveContent();
     });
-
-    // Handle tab key in editors
+    
     editor.addEventListener('keydown', (e) => {
         if (e.key === 'Tab') {
             e.preventDefault();
@@ -178,14 +161,11 @@ editors.forEach(editor => {
     });
 });
 
-// Initialize the editor
 loadSavedContent();
 
-// Focus the active editor on load
 const activeEditor = document.querySelector('.editor.active');
 if (activeEditor) {
     activeEditor.focus();
 }
 
-// Set initial favicon
 updateFavicon('html'); 
